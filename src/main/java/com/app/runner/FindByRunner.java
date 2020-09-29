@@ -17,7 +17,7 @@ public class FindByRunner implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		//productRepository.save(new  Product("BB", "BMW", 4.6));
+		productRepository.save(new  Product("BB", "BMW", 4.6));
 		
 		/*
 		 * Optional<Product> product=productRepository.findById(1);
