@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,6 +38,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Transactional //service Layer
 	@Query("update Product p set p.prodCode=:a, p.prodCost=:c where p.prodId=:b")
 	void updateMyData(String a, Double c, Integer b);
+	
+	Page<Product>  findByProdCode(String code,Pageable page);
+	
+	
 }
-
-

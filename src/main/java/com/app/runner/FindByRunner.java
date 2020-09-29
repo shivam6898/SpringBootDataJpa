@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.app.model.Product;
@@ -14,17 +17,17 @@ public class FindByRunner implements CommandLineRunner {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Override
 	public void run(String... args) throws Exception {
-		productRepository.save(new  Product("BB", "BMW", 4.6));
-		
+		//productRepository.save(new  Product("BB", "BMW", 4.6));
+
 		/*
 		 * Optional<Product> product=productRepository.findById(1);
 		 * if(product.isPresent()){ System.out.println(product); }else {
 		 * System.out.println("no data present"); }
 		 */
-		
+
 		/*
 		 * List<Product> findedProdByCode=productRepository.findByProdCode("AA"); for
 		 * (Product product2 : findedProdByCode) { System.out.println(product2); }
@@ -41,17 +44,23 @@ public class FindByRunner implements CommandLineRunner {
 		 * listsprod=productRepository.findByProdCostIn(list); for (Product product :
 		 * listsprod) { System.out.println(product); }
 		 */
-		
+
 		/*
 		 * List<Product> prodlist=productRepository.findByProdIdOrProdCost(5, 10.0); for
 		 * (Product product : prodlist) { System.out.println(product); }
 		 */
-		
-		List<Product> getAllProductByCodeandCost=productRepository.getAllProducts("BB", 10.0);
-	for (Product product : getAllProductByCodeandCost) {
-		System.out.println(product);
-	}
-		
-	}
 
+		/*
+		 * List<Product>
+		 * getAllProductByCodeandCost=productRepository.getAllProducts("BB", 10.0); for
+		 * (Product product : getAllProductByCodeandCost) { System.out.println(product);
+		 * }
+		 */
+		Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
+		Page<Product> firsttwoelements= productRepository.findByProdCode("AA", firstPageWithTwoElements);
+		for (Product product : firsttwoelements) {
+			System.out.println(product);
+
+		}
+	}
 }
